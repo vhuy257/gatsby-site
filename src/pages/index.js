@@ -23,11 +23,13 @@ const BlogIndex = ({ data, location }) => {
     )
   }
 
+  console.log(posts);
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
       <ol style={{ listStyle: `none` }}>
+        
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
