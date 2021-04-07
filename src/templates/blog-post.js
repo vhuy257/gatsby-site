@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
+import Img from "gatsby-image/withIEPolyfill"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -9,6 +10,7 @@ const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const { previous, next } = data
+  let featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fixed
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -21,6 +23,12 @@ const BlogPostTemplate = ({ data, location }) => {
         itemScope
         itemType="http://schema.org/Article"
       >
+        <Img
+          fluid={featuredImgFluid}
+          objectFit="cover"
+          objectPosition="50% 50%"
+          alt=""
+        />
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
@@ -83,6 +91,13 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
+        featuredImage {
+          childImageSharp {
+            fixed(width: 400) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
         date(formatString: "MMMM DD, YYYY")
         description
       }

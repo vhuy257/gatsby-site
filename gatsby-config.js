@@ -30,6 +30,7 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        path: `${__dirname}/src/pages`,
         plugins: [
           {
             resolve: `gatsby-remark-images`,
